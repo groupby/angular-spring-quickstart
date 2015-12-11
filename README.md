@@ -3,6 +3,7 @@ Angular Spring Quickstart
 
 
 A work in progress for a angular single page app for interacting with search and navigation against the GroupBy cloud application.
+(Requires JDK 1.8)
 
 Usage
 ---
@@ -34,7 +35,7 @@ params: { 'f': 'title,image',
           'r':$scope.selected.join('~')}
 ```
 
-### To create a self contained executable jar  (Requires JDK 1.8)
+### To create a self contained executable jar
 
 ```bash
 mvn package
