@@ -1,0 +1,25 @@
+<div class="col-md=12">
+    <input type="text" ng-model="term" style="width:500px;">
+    <span ng-show="noRecords">No records found for the current search</span>
+</div>
+<div class="col-md-2">
+    <div ng-show="results.availableNavigation.length == 0">No navigation</div>
+    <div ng-repeat="navigation in results.availableNavigation">
+        {{navigation.displayName}}
+        <div ng-repeat="refinement in navigation.refinements">
+            <label><input type="checkbox" ng-click="addRefinement(navigation, refinement)">{{refinement.value}}</label>
+        </div>
+    </div>
+</div>
+<div class="col-md-10">
+    <h3>{{results.totalRecordCount}} results <span ng-show="results.selectedNavigation.length > 0">Filtered by: </span>
+    <span ng-repeat="navigation in results.selectedNavigation">
+        {{navigation.displayName}}:<span ng-repeat="refinement in navigation.refinements">
+        <a href="javascript:;"  ng-click="removeRefinement(navigation, refinement)">{{refinement.value}}</a></span>
+    </span>
+    </h3>
+    <div ng-repeat="record in results.records">
+        <img style="max-width:50px;max-height:50px;" ng-src="{{record.allMeta['image']}}"/>
+        {{record.title}}
+    </div>
+</div>
