@@ -26,11 +26,11 @@ All of these settings can be overridden in the angular controller HTTP request.
 
 ```coffeescript
 params: { 'f': 'title,image',
-          'q': 'searchTerm',
-          'a':'myArea',
-          'c';'myCollection',
+          'q': $scope.term,
+          'a': 'myArea',
+          'c': 'myCollection',
+          'p': 0,
           'ps': 50,
-          'p': 10,
           'r':$scope.selected.join('~')}
 ```
 
