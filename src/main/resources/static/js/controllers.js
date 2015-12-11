@@ -1,5 +1,5 @@
 angular.module('groupbyApp.controllers', [
-]).controller('SearchController', function ($q, $http, $scope, $state, GroupBySearch) {
+]).controller('SearchController', function ($q, $http, $scope, $state) {
     $scope.term = "laptop";
     $scope.noRecords = false;
     $scope.selected = [];
@@ -24,7 +24,11 @@ angular.module('groupbyApp.controllers', [
             canceler.resolve();
         }
         canceler = $q.defer();
-        $http({method: 'GET', url: '/search?a=Angular&f=title,image&ps=10&q=' + $scope.term +'&r=' + $scope.selected.join('~'), timeout: canceler.promise}).
+        $http({url: '/search',
+            params: { 'f': 'title,image',
+                      'q':$scope.term,
+                      'r':$scope.selected.join('~')},
+            timeout: canceler.promise}).
             success(
                 function(results) {
                     if (results.totalRecordCount > 0) {

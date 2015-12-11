@@ -2,7 +2,6 @@ angular.module('groupbyApp',
     ['ui.router',
         'ngResource',
         'groupbyApp.controllers',
-        'groupbyApp.services',
         'ui.bootstrap']);
 
 angular.module('groupbyApp')

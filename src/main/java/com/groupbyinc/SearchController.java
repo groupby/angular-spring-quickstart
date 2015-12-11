@@ -22,6 +22,10 @@ public class SearchController implements InitializingBean {
 
 
     private CloudBridge cloudBridge;
+    private Integer defaultPageSize;
+    private String defaultArea;
+    private String defaultFields;
+    private String defaultCollection;
 
     @RequestMapping("/search")
     protected Results handleSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -33,9 +37,14 @@ public class SearchController implements InitializingBean {
 
         Query query = defaultUrlBeautifier.fromUrl(request.getRequestURI(), new Query());
 
-        String fields = ServletRequestUtils.getStringParameter(request, "f", "");
+        String fields = ServletRequestUtils.getStringParameter(request, "f", defaultFields);
         if (StringUtils.isNotBlank(fields)) {
             query.addFields(fields.split(","));
+        }
+
+        String collection = ServletRequestUtils.getStringParameter(request, "c", defaultCollection);
+        if (StringUtils.isNotBlank(collection)) {
+            query.setCollection(collection);
         }
 
         String refinements = ServletRequestUtils.getStringParameter(request, "r", "");
@@ -47,13 +56,14 @@ public class SearchController implements InitializingBean {
         if (StringUtils.isNotBlank(queryString)) {
             query.setQuery(queryString);
         }
-        String area = ServletRequestUtils.getStringParameter(request, "a", "");
+
+        String area = ServletRequestUtils.getStringParameter(request, "a", defaultArea);
         if (StringUtils.isNotBlank(area)) {
             query.setArea(area);
         }
 
         query.setSkip(ServletRequestUtils.getIntParameter(request, "p", 0));
-        query.setPageSize(ServletRequestUtils.getIntParameter(request, "ps", 10));
+        query.setPageSize(ServletRequestUtils.getIntParameter(request, "ps", defaultPageSize));
 
         MatchStrategy matchStrategy = new MatchStrategy();
         List<PartialMatchRule> rules = new ArrayList<>();
@@ -84,6 +94,11 @@ public class SearchController implements InitializingBean {
         if (clientKey == null) {
             throw new Exception("You must provide a clientKey as a system property. (In maven use mvn -DclientKey=ABC)");
         }
+
+        defaultPageSize = new Integer(System.getProperty("pageSize", "10"));
+        defaultArea = System.getProperty("area", null);
+        defaultFields = System.getProperty("fields", "title");
+        defaultCollection = System.getProperty("collection", null);
         cloudBridge = new CloudBridge(clientKey, customerId);
 
     }
