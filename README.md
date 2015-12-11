@@ -18,5 +18,5 @@ mvn spring-boot:run -DclientKey=<your client key> -DcustomerId=<your customer id
 
 ```bash
 mvn package
-java -DcustomerId=aoeu -DclientKey=aoeu -jar target/angular-spring-quickstart-*.jar --server.port=8080
+java -DcustomerId=<your customer id> -DclientKey=<your client key> -jar target/angular-spring-quickstart-*.jar --server.port=8080
 ```
