@@ -1,8 +1,8 @@
 angular.module('groupbyApp',
     ['ui.router',
-        'ngResource',
-        'groupbyApp.controllers',
-        'ui.bootstrap']);
+     'ngResource',
+     'groupbyApp.controllers',
+     'ui.bootstrap']);
 
 angular.module('groupbyApp')
     .config(function ($stateProvider) {
@@ -13,5 +13,5 @@ angular.module('groupbyApp')
         reloadOnSearch: false
     });
 }).run(function ($state) {
-  $state.go('search');
+    $state.go('search');
 });

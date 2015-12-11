@@ -89,18 +89,15 @@ public class SearchController implements InitializingBean {
         String clientKey = System.getProperty("clientKey");
         if (customerId == null) {
             throw new Exception("You must provide a customerId as a system property. (In maven use mvn -DcustomerId=customer)");
-
         }
         if (clientKey == null) {
             throw new Exception("You must provide a clientKey as a system property. (In maven use mvn -DclientKey=ABC)");
         }
-
         defaultPageSize = new Integer(System.getProperty("pageSize", "10"));
         defaultArea = System.getProperty("area", null);
         defaultFields = System.getProperty("fields", "title");
         defaultCollection = System.getProperty("collection", null);
         cloudBridge = new CloudBridge(clientKey, customerId);
-
     }
 
 }
